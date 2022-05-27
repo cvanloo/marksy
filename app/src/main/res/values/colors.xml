@@ -11,4 +11,11 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+
+    <color name="mark_6.0">#FF80FF6B</color>
+    <color name="mark_5.5">#FF60C350</color>
+    <color name="mark_5.0">#FF5B935A</color>
+    <color name="mark_4.5">#FFDEA146</color>
+    <color name="mark_4.0">#FFFF6B6B</color>
+    <color name="mark_failing">#FFFF0000</color>
 </resources>

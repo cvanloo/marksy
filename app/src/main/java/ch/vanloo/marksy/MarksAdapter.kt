@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MarksAdapter(private val context: Context, private var marks: List<Mark>) :
     RecyclerView.Adapter<MarksAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private var mark: Mark? = null
 
         private val markName: TextView
@@ -30,6 +30,19 @@ class MarksAdapter(private val context: Context, private var marks: List<Mark>) 
             markName.text = name
             markValue.text = value.toString()
             markWeighting.text = context.getString(R.string.mark_weighting, weighting)
+            if (value == 6.0f) {
+                markValue.setTextColor(context.getColor(R.color.mark_6_0))
+            } else if (value >= 5.5f) {
+                markValue.setTextColor(context.getColor(R.color.mark_5_5))
+            } else if (value >= 5.0f) {
+                markValue.setTextColor(context.getColor(R.color.mark_5_0))
+            } else if (value >= 4.5f) {
+                markValue.setTextColor(context.getColor(R.color.mark_4_5))
+            } else if (value >= 4.0f) {
+                markValue.setTextColor(context.getColor(R.color.mark_4_0))
+            } else {
+                markValue.setTextColor(context.getColor(R.color.mark_failing))
+            }
         }
     }
 
