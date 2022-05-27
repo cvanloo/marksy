@@ -20,11 +20,16 @@
             android:id="@+id/mark_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello"
+            android:singleLine="true"
+            android:text="Hello Some Very Long Text"
             android:textColor="#F0D0D0"
             android:textSize="40sp"
+            android:layout_marginEnd="10dp"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mark_value"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
