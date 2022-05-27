@@ -40,7 +40,7 @@ class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment) {
 
     private fun initRecyclerView() {
         binding.recyclerViewMarks.apply {
-            marksAdapter = MarksAdapter(marks)
+            marksAdapter = MarksAdapter(context, marks)
             adapter = marksAdapter
             layoutManager = LinearLayoutManager(this@MarksOverviewFragment.context)
         }

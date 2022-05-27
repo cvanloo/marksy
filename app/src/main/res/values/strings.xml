@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Marksy</string>
+    <string name="mark_weighting">x%1$.2f</string>
 </resources>

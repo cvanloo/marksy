@@ -1,12 +1,14 @@
 package ch.vanloo.marksy
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-class MarksAdapter(private var marks: List<Mark>) :
+class MarksAdapter(private val context: Context, private var marks: List<Mark>) :
     RecyclerView.Adapter<MarksAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -22,12 +24,12 @@ class MarksAdapter(private var marks: List<Mark>) :
             markWeighting = view.findViewById(R.id.mark_weighting)
         }
 
-        fun bindMark(mark: Mark) {
+        fun bindMark(context: Context, mark: Mark) {
             this.mark = mark
             val (value, weighting, name) = mark
             markName.text = name
             markValue.text = value.toString()
-            markWeighting.text = weighting.toString()
+            markWeighting.text = context.getString(R.string.mark_weighting, weighting)
         }
     }
 
@@ -38,7 +40,7 @@ class MarksAdapter(private var marks: List<Mark>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mark = marks[position]
-        holder.bindMark(mark)
+        holder.bindMark(context, mark)
     }
 
     override fun getItemCount() = marks.size
