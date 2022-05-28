@@ -4,4 +4,10 @@
         <item name="android:background">@color/gray_600</item>
         <item name="exampleColor">@color/light_blue_600</item>
     </style>
+
+    <style name="AddMarkOutlineBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/add_mark_stroke</item>
+        <item name="android:textColorHint">@color/add_mark_hint</item>
+        <item name="hintTextColor">#AF6B6B</item>
+    </style>
 </resources>

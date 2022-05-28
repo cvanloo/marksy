@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Marksy</string>
     <string name="mark_weighting">x%1$.2f</string>
+    <string name="add_mark">Add Mark</string>
+    <string name="mark_must">Mark*</string>
+    <string name="weighting_must">Weighting*</string>
+    <string name="weighting_default_1_0">1.0</string>
+    <string name="name_must">Name*</string>
+    <string name="date">Date</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="add_mark_image">Add Mark</string>
 </resources>

@@ -18,4 +18,7 @@
     <color name="mark_4.5">#FFDEA146</color>
     <color name="mark_4.0">#FFFF6B6B</color>
     <color name="mark_failing">#FFFF0000</color>
+
+    <color name="fab_create">#FF6B6B</color>
+    <color name="add_mark_text">#AF6D6D</color>
 </resources>
