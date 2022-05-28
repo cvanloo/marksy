@@ -1,5 +1,6 @@
 package ch.vanloo.marksy
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import ch.vanloo.marksy.databinding.ActivityMainBinding
@@ -11,5 +12,10 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.fab.setOnClickListener { view ->
+            val intent = Intent(this, AddMarkActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
