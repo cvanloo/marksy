@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.vanloo.marksy.databinding.MarksOverviewFragmentBinding
 
@@ -12,18 +13,9 @@ class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment) {
     private lateinit var binding: MarksOverviewFragmentBinding
     private lateinit var marksAdapter: MarksAdapter
 
-    private val marks = listOf(
-        Mark(5.5f, 1.0f, "NPS Kinematik"),
-        Mark(6.0f, 1.0f, "Mathe Vektorengeometrie"),
-        Mark(5.6f, 1.0f, "English Listening & Grammar"),
-        Mark(6.0f, 1.0f, "English Reading & Grammar"),
-        Mark(4.5f, 0.5f, "DE Zitieren & Belegen"),
-        Mark(4.0f, 1.0f, "Oh no!"),
-        Mark(1.2f, 1.0f, "You are a disgrace!"),
-        Mark(6.0f, 0.33f, "English Voci"),
-        Mark(6.0f, 0.33f, "English Voci"),
-        Mark(5.9f, 0.33f, "English Voci"),
-    )
+    private val marksViewModel: MarksViewModel by viewModels {
+        MarksViewModelFactory((activity?.application as MarksApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,19 +29,14 @@ class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
-        addDataSet()
-    }
-
-    private fun initRecyclerView() {
         binding.recyclerViewMarks.apply {
-            marksAdapter = MarksAdapter(context, marks)
+            marksAdapter = MarksAdapter(context)
             adapter = marksAdapter
-            layoutManager = LinearLayoutManager(this@MarksOverviewFragment.context)
+            layoutManager = LinearLayoutManager(this@MarksOverviewFragment.requireContext())
         }
-    }
 
-    private fun addDataSet() {
-        marksAdapter.submitList(marks)
+        marksViewModel.allMarks.observe(viewLifecycleOwner) { marks ->
+            marks?.let { marksAdapter.submitList(it) }
+        }
     }
 }

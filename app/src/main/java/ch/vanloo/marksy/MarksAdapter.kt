@@ -5,22 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class MarksAdapter(private val context: Context, private var marks: List<Mark>) :
-    RecyclerView.Adapter<MarksAdapter.ViewHolder>() {
+class MarksAdapter(private val context: Context) :
+    ListAdapter<Mark, MarksAdapter.MarkViewHolder>(MarksComparator()) {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarkViewHolder {
+        return MarkViewHolder.create(parent)
+    }
+
+    override fun onBindViewHolder(holder: MarkViewHolder, position: Int) {
+        val mark = getItem(position)
+        holder.bind(context, mark)
+    }
+
+    class MarkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var mark: Mark? = null
 
         private val markName: TextView = view.findViewById(R.id.mark_name)
         private val markValue: TextView = view.findViewById(R.id.mark_value)
         private val markWeighting: TextView = view.findViewById(R.id.mark_weighting)
 
-        fun bindMark(context: Context, mark: Mark) {
+        fun bind(context: Context, mark: Mark) {
             this.mark = mark
 
-            val (value, weighting, name) = mark
+            val (_, value, weighting, name) = mark
             markName.text = name
             markValue.text = value.toString()
             markWeighting.text = context.getString(R.string.mark_weighting, weighting)
@@ -39,21 +50,24 @@ class MarksAdapter(private val context: Context, private var marks: List<Mark>) 
                 markValue.setTextColor(context.getColor(R.color.mark_failing))
             }
         }
+
+        companion object {
+            fun create(parent: ViewGroup): MarkViewHolder {
+                val view: View =
+                    LayoutInflater.from(parent.context).inflate(R.layout.card_view, parent, false)
+                return MarkViewHolder(view)
+            }
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_view, parent, false)
-        return ViewHolder(view)
-    }
+    class MarksComparator : DiffUtil.ItemCallback<Mark>() {
+        override fun areItemsTheSame(oldItem: Mark, newItem: Mark): Boolean {
+            return oldItem === newItem
+        }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val mark = marks[position]
-        holder.bindMark(context, mark)
-    }
+        override fun areContentsTheSame(oldItem: Mark, newItem: Mark): Boolean {
+            return oldItem == newItem
+        }
 
-    override fun getItemCount() = marks.size
-
-    fun submitList(marksList: List<Mark>) {
-        marks = marksList
     }
 }
