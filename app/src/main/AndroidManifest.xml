@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Marksy"
         tools:targetApi="31">
         <activity
+            android:name=".MarkDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddMarkActivity"
             android:exported="false" />
         <activity
