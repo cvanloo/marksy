@@ -18,6 +18,17 @@
         android:padding="15dp">
 
         <TextView
+            android:id="@+id/mark_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/formatted_date"
+            android:textColor="#88FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/mark_name"
+            app:layout_constraintLeft_toLeftOf="@id/mark_name"/>
+
+        <TextView
             android:id="@+id/mark_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
