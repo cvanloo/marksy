@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ch.vanloo.marksy.entity.Mark
 import java.util.*
 
 class MarksAdapter(private val context: Context, private val itemClickListener: ItemClickListener) :
@@ -25,8 +26,17 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
         }
     }
 
+    override fun onCurrentListChanged(
+        previousList: MutableList<Mark>,
+        currentList: MutableList<Mark>,
+    ) {
+        super.onCurrentListChanged(previousList, currentList)
+        itemClickListener.onListUpdated()
+    }
+
     interface ItemClickListener {
         fun onItemClick(mark: Mark)
+        fun onListUpdated()
     }
 
     class MarkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
