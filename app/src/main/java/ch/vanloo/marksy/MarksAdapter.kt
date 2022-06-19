@@ -26,17 +26,8 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
         }
     }
 
-    override fun onCurrentListChanged(
-        previousList: MutableList<Mark>,
-        currentList: MutableList<Mark>,
-    ) {
-        super.onCurrentListChanged(previousList, currentList)
-        itemClickListener.onListUpdated()
-    }
-
     interface ItemClickListener {
         fun onItemClick(mark: Mark)
-        fun onListUpdated()
     }
 
     class MarkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
