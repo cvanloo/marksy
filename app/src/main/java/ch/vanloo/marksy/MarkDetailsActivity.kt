@@ -1,7 +1,7 @@
 package ch.vanloo.marksy
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import ch.vanloo.marksy.databinding.ActivityMarkDetailsBinding
 import ch.vanloo.marksy.db.MarkDao
 import ch.vanloo.marksy.db.MarksDatabase

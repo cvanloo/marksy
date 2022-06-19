@@ -17,7 +17,8 @@ abstract class MarksDatabase : RoomDatabase() {
     abstract fun marksDao(): MarkDao
     abstract fun subjectsDao(): SubjectDao
 
-    private class MarksDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
+    private class MarksDatabaseCallback(private val scope: CoroutineScope) :
+        RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->

@@ -13,7 +13,7 @@ class MainActivity : FragmentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener { _ ->
             val intent = Intent(this, AddMarkActivity::class.java)
             startActivity(intent)
         }

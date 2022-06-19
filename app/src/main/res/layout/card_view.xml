@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/card_view"
-    android:layout_marginTop="20dp"
     android:layout_marginHorizontal="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="20dp"
     app:cardBackgroundColor="#222"
     app:cardCornerRadius="15dp"
     app:cardElevation="3dp"
     app:contentPadding="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/constraint_layout"
         android:padding="15dp">
 
         <TextView
@@ -24,19 +24,19 @@
             android:text="@string/formatted_date"
             android:textColor="#88FFFFFF"
             android:textSize="15sp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/mark_name"
-            app:layout_constraintLeft_toLeftOf="@id/mark_name"/>
+            app:layout_constraintLeft_toLeftOf="@id/mark_name"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/mark_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:singleLine="true"
             android:text="Hello Some Very Long Text"
             android:textColor="#FFFFFFFF"
             android:textSize="40sp"
-            android:layout_marginEnd="10dp"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/mark_value"
@@ -45,15 +45,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/mark_weighting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mark_weighting"
-            android:id="@+id/mark_weighting"
             android:textColor="#88FFFFFF"
             android:textSize="15sp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/mark_value"
-            app:layout_constraintRight_toRightOf="@id/mark_value"/>
+            app:layout_constraintRight_toRightOf="@id/mark_value"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/mark_value"

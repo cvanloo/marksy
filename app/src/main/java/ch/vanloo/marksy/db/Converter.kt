@@ -1,7 +1,7 @@
 package ch.vanloo.marksy.db
 
 import androidx.room.TypeConverter
-import java.util.Date
+import java.util.*
 
 /**
  * Helper to convert Kotlin types to Room types and back.

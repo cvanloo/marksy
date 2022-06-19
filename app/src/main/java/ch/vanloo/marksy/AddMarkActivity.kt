@@ -1,12 +1,12 @@
 package ch.vanloo.marksy
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import androidx.appcompat.app.AppCompatActivity
 import ch.vanloo.marksy.databinding.ActivityAddMarkBinding
 import ch.vanloo.marksy.db.MarksDatabase
 import ch.vanloo.marksy.entity.Mark

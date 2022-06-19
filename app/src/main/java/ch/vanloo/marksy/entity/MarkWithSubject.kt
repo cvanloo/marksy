@@ -10,5 +10,5 @@ data class MarkWithSubject(
         parentColumn = "subject_id",
         entityColumn = "sid",
     )
-    val subject: Subject
+    val subject: Subject,
 )

@@ -10,5 +10,5 @@ data class SubjectAndMarks(
         parentColumn = "sid",
         entityColumn = "subject_id",
     )
-    val marks: List<Mark>
+    val marks: List<Mark>,
 )

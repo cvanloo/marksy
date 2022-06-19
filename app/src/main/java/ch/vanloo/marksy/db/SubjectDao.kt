@@ -1,8 +1,8 @@
 package ch.vanloo.marksy.db
 
 import androidx.room.*
-import ch.vanloo.marksy.entity.SubjectAndMarks
 import ch.vanloo.marksy.entity.Subject
+import ch.vanloo.marksy.entity.SubjectAndMarks
 import kotlinx.coroutines.flow.Flow
 
 @Dao

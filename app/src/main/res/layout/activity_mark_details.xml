@@ -9,38 +9,38 @@
 
     <include
         android:id="@+id/preview"
+        layout="@layout/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="20dp"
-        layout="@layout/card_view"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete"
-        app:layout_constraintTop_toBottomOf="@id/preview"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:textSize="11sp"
         android:backgroundTint="@color/black"
-        android:textColor="@color/add_mark_text"/>
+        android:text="@string/delete"
+        android:textColor="@color/add_mark_text"
+        android:textSize="11sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preview" />
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save"
-        app:layout_constraintTop_toBottomOf="@id/preview"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="20dp"
-        android:textSize="11sp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@color/black"
-        android:textColor="@color/add_mark_text"/>
+        android:text="@string/save"
+        android:textColor="@color/add_mark_text"
+        android:textSize="11sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

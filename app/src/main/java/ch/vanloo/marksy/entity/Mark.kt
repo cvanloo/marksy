@@ -3,7 +3,7 @@ package ch.vanloo.marksy.entity
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
 import ch.vanloo.marksy.db.Converter
-import java.util.Date
+import java.util.*
 
 @Entity(tableName = "marks", foreignKeys = [ForeignKey(entity = Subject::class,
     parentColumns = ["sid"],
@@ -16,5 +16,5 @@ data class Mark(
     @ColumnInfo(name = "weighting") val Weighting: Float,
     @ColumnInfo(name = "name") val Name: String,
     @ColumnInfo(name = "date") val Date: Date,
-    @ColumnInfo(name = "subject_id", index = true) val Subject: Long
+    @ColumnInfo(name = "subject_id", index = true) val Subject: Long,
 )
