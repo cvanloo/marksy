@@ -1,6 +1,7 @@
-package ch.vanloo.marksy
+package ch.vanloo.marksy.db
 
 import androidx.room.*
+import ch.vanloo.marksy.entity.Mark
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -8,12 +9,14 @@ interface MarkDao {
     @Insert
     suspend fun insertAll(vararg marks: Mark): Array<Long>
 
+    @Transaction
     @Query("SELECT * FROM marks")
     fun getAll(): Flow<List<Mark>>
 
     @Query("SELECT * FROM marks WHERE uid = :uid")
-    fun getById(uid: Long): Mark
+    suspend fun getById(uid: Long): Mark
 
+    @Transaction
     @Query("SELECT * FROM marks WHERE name LIKE :name")
     fun findByName(name: String): Flow<List<Mark>>
 

@@ -3,6 +3,9 @@ package ch.vanloo.marksy
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ch.vanloo.marksy.databinding.ActivityMarkDetailsBinding
+import ch.vanloo.marksy.db.MarkDao
+import ch.vanloo.marksy.db.MarksDatabase
+import ch.vanloo.marksy.entity.Mark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*

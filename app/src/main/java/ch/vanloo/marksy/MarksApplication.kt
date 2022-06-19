@@ -1,6 +1,8 @@
 package ch.vanloo.marksy
 
 import android.app.Application
+import ch.vanloo.marksy.db.MarksDatabase
+import ch.vanloo.marksy.db.MarksRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 

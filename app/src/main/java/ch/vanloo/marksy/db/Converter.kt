@@ -1,4 +1,4 @@
-package ch.vanloo.marksy
+package ch.vanloo.marksy.db
 
 import androidx.room.TypeConverter
 import java.util.Date

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ch.vanloo.marksy.databinding.ActivityAddMarkBinding
+import ch.vanloo.marksy.entity.Mark
 import kotlinx.coroutines.launch
 import java.util.*
 
