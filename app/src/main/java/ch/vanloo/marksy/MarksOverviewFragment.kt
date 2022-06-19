@@ -1,5 +1,6 @@
 package ch.vanloo.marksy
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.vanloo.marksy.databinding.MarksOverviewFragmentBinding
 
-class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment) {
+class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment),
+    MarksAdapter.ItemClickListener {
     private lateinit var binding: MarksOverviewFragmentBinding
     private lateinit var marksAdapter: MarksAdapter
 
@@ -20,7 +22,7 @@ class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = MarksOverviewFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -30,7 +32,7 @@ class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerViewMarks.apply {
-            marksAdapter = MarksAdapter(context)
+            marksAdapter = MarksAdapter(context, this@MarksOverviewFragment)
             adapter = marksAdapter
             layoutManager = LinearLayoutManager(this@MarksOverviewFragment.requireContext())
         }
@@ -38,5 +40,11 @@ class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment) {
         marksViewModel.allMarks.observe(viewLifecycleOwner) { marks ->
             marks?.let { marksAdapter.submitList(it) }
         }
+    }
+
+    override fun onItemClick(mark: Mark) {
+        val intent = Intent(requireContext(), MarkDetailsActivity::class.java)
+        intent.putExtra(MarkDetailsActivity.MARK_ID, mark.Uid)
+        startActivity(intent)
     }
 }

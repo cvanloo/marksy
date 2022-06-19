@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class MarksAdapter(private val context: Context) :
+class MarksAdapter(private val context: Context, private val itemClickListener: ItemClickListener) :
     ListAdapter<Mark, MarksAdapter.MarkViewHolder>(MarksComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarkViewHolder {
@@ -20,6 +20,13 @@ class MarksAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: MarkViewHolder, position: Int) {
         val mark = getItem(position)
         holder.bind(context, mark)
+        holder.itemView.setOnClickListener {
+            itemClickListener.onItemClick(mark)
+        }
+    }
+
+    interface ItemClickListener {
+        fun onItemClick(mark: Mark)
     }
 
     class MarkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -48,6 +55,7 @@ class MarksAdapter(private val context: Context) :
                 calendar.get(Calendar.YEAR)
             )
 
+            // @DUP: Coloring:1
             if (value == 6.0f) {
                 markValue.setTextColor(context.getColor(R.color.mark_6_0))
             } else if (value >= 5.5f) {
