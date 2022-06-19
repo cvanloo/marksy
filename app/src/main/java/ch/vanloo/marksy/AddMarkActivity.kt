@@ -49,7 +49,7 @@ class AddMarkActivity : AppCompatActivity() {
         }
 
         binding.buttonCreate.setOnClickListener {
-            // TODO: Validate that all required fields are set
+            // @TODO: Validate that all required fields are set
             val value = binding.inputMark.text.toString().toFloat()
             val weighting = binding.inputWeighting.text.toString().toFloat()
             val name = binding.inputName.text.toString()

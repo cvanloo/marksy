@@ -9,7 +9,7 @@ import java.util.Date
 @Entity(tableName = "marks")
 @TypeConverters(Converter::class)
 data class Mark(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "uid") val UID: Long,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "uid") val Uid: Long,
     @ColumnInfo(name = "value") val Value: Float,
     @ColumnInfo(name = "weighting") val Weighting: Float,
     @ColumnInfo(name = "name") val Name: String,
