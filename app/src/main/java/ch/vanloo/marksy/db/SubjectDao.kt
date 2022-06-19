@@ -12,15 +12,27 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects")
-    fun getAll(): Flow<List<SubjectAndMarks>>
+    fun getAll(): Flow<List<Subject>>
+
+    @Transaction
+    @Query("SELECT * FROM subjects")
+    fun getAllWithMarks(): Flow<List<SubjectAndMarks>>
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE sid = :sid")
-    suspend fun getById(sid: Long): SubjectAndMarks
+    suspend fun getById(sid: Long): Subject
+
+    @Transaction
+    @Query("SELECT * FROM subjects WHERE sid = :sid")
+    suspend fun getByIdWithMarks(sid: Long): SubjectAndMarks
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE name LIKE :name")
-    fun findByName(name: String): Flow<List<SubjectAndMarks>>
+    fun findByName(name: String): Flow<List<Subject>>
+
+    @Transaction
+    @Query("SELECT * FROM subjects WHERE name LIKE :name")
+    fun findByNameWithMarks(name: String): Flow<List<SubjectAndMarks>>
 
     @Update
     suspend fun updateAll(vararg subjects: Subject): Int

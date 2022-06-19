@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.vanloo.marksy.databinding.MarksOverviewFragmentBinding
+import ch.vanloo.marksy.db.MarksViewModel
+import ch.vanloo.marksy.db.MarksViewModelFactory
 import ch.vanloo.marksy.entity.Mark
 
 class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment),

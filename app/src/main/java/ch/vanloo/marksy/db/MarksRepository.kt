@@ -2,13 +2,16 @@ package ch.vanloo.marksy.db
 
 import androidx.annotation.WorkerThread
 import ch.vanloo.marksy.entity.Mark
+import ch.vanloo.marksy.entity.MarkWithSubject
 import ch.vanloo.marksy.entity.Subject
 import ch.vanloo.marksy.entity.SubjectAndMarks
 import kotlinx.coroutines.flow.Flow
 
 class MarksRepository(private val markDao: MarkDao, private val subjectDao: SubjectDao) {
     val allMarks: Flow<List<Mark>> = markDao.getAll()
-    val allSubjects: Flow<List<SubjectAndMarks>> = subjectDao.getAll()
+    val allMarksWithSubject: Flow<List<MarkWithSubject>> = markDao.getAllWithSubject()
+    val allSubjects: Flow<List<Subject>> = subjectDao.getAll()
+    val allSubjectsWithMarks: Flow<List<SubjectAndMarks>> = subjectDao.getAllWithMarks()
 
     @WorkerThread
     suspend fun insert(vararg marks: Mark) {
