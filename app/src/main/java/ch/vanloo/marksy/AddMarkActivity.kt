@@ -28,12 +28,18 @@ class AddMarkActivity : AppCompatActivity() {
         binding = ActivityAddMarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val calendar = Calendar.getInstance()
+        this.date = calendar.timeInMillis
+        binding.inputDate.setText(getString(R.string.formatted_date,
+            calendar.get(Calendar.DAY_OF_MONTH),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.YEAR)))
+
         binding.buttonCancel.setOnClickListener {
             finish()
         }
 
         binding.inputDate.setOnClickListener {
-            val calendar = Calendar.getInstance()
             DatePickerDialog(this,
                 datePickerDialogListener,
                 calendar.get(Calendar.YEAR),
@@ -43,6 +49,7 @@ class AddMarkActivity : AppCompatActivity() {
         }
 
         binding.buttonCreate.setOnClickListener {
+            // TODO: Validate that all required fields are set
             val value = binding.inputMark.text.toString().toFloat()
             val weighting = binding.inputWeighting.text.toString().toFloat()
             val name = binding.inputName.text.toString()
