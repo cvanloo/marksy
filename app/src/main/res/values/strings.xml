@@ -13,4 +13,6 @@
     <string name="formatted_date">%d.%d.%d</string>
     <string name="delete">Delete</string>
     <string name="save">Save</string>
+    <string name="subject">Subject</string>
+    <string name="subject_must">Subject*</string>
 </resources>

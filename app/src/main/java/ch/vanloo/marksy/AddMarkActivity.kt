@@ -3,13 +3,21 @@ package ch.vanloo.marksy
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import ch.vanloo.marksy.databinding.ActivityAddMarkBinding
+import ch.vanloo.marksy.db.MarksDatabase
 import ch.vanloo.marksy.entity.Mark
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
 class AddMarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddMarkBinding
+    private lateinit var database: MarksDatabase
+    private lateinit var scope: CoroutineScope
 
     private var date: Long = 0
 
@@ -28,6 +36,9 @@ class AddMarkActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddMarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        database = (application as MarksApplication).database
+        scope = (application as MarksApplication).applicationScope
 
         val calendar = Calendar.getInstance()
         this.date = calendar.timeInMillis
@@ -49,6 +60,18 @@ class AddMarkActivity : AppCompatActivity() {
             ).show()
         }
 
+        val subjectDao = database.subjectsDao()
+        val subjects = subjectDao.getAll()
+        binding.inputSubject.setOnClickListener {
+            val inflator = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val dropdown = inflator.inflate(R.layout.dropdown_popup, null)
+            val popupWindow = PopupWindow(dropdown,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                true)
+            popupWindow.showAtLocation(dropdown, Gravity.CENTER, 0, 0)
+        }
+
         binding.buttonCreate.setOnClickListener {
             // @TODO: Validate that all required fields are set
             val value = binding.inputMark.text.toString().toFloat()
@@ -56,13 +79,11 @@ class AddMarkActivity : AppCompatActivity() {
             val name = binding.inputName.text.toString()
             val date = Date(date)
 
-            val mark = Mark(0, value, weighting, name, date)
+            val mark = Mark(0, value, weighting, name, date, 1)
 
-            val database = (application as MarksApplication).database
-            val scope = (application as MarksApplication).applicationScope
-            val dao = database.marksDao()
+            val markDao = database.marksDao()
             scope.launch {
-                dao.insertAll(mark)
+                markDao.insertAll(mark)
             }
 
             finish()
