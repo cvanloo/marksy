@@ -12,7 +12,11 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects")
-    fun getAll(): Flow<List<Subject>>
+    fun getAll(): List<Subject>
+
+    @Transaction
+    @Query("SELECT * FROM subjects")
+    fun getAllFlow(): Flow<List<Subject>>
 
     @Transaction
     @Query("SELECT * FROM subjects")
@@ -28,7 +32,11 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE name LIKE :name")
-    fun findByName(name: String): Flow<List<Subject>>
+    fun findByName(name: String): List<Subject>
+
+    @Transaction
+    @Query("SELECT * FROM subjects WHERE name LIKE :name")
+    fun findByNameFlow(name: String): Flow<List<Subject>>
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE name LIKE :name")

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 class MarksRepository(private val markDao: MarkDao, private val subjectDao: SubjectDao) {
     val allMarks: Flow<List<Mark>> = markDao.getAll()
     val allMarksWithSubject: Flow<List<MarkWithSubject>> = markDao.getAllWithSubject()
-    val allSubjects: Flow<List<Subject>> = subjectDao.getAll()
+    val allSubjects: Flow<List<Subject>> = subjectDao.getAllFlow()
     val allSubjectsWithMarks: Flow<List<SubjectAndMarks>> = subjectDao.getAllWithMarks()
 
     @WorkerThread
