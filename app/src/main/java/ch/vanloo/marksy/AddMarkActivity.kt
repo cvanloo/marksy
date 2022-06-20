@@ -88,12 +88,17 @@ class AddMarkActivity : AppCompatActivity() {
     }
 
     private suspend fun ensureCreatedSubjectID(subject: Subject?): Long {
-        if (subject == null) {
-            val dao = database.subjectsDao()
-            val name = binding.inputSubject.text.toString()
-            val newSubject = Subject(0, name)
-            return dao.insertAll(newSubject)[0]
+        val dao = database.subjectsDao()
+        val name = binding.inputSubject.text.toString()
+
+        if (subject != null) return subject.Sid
+
+        val found = dao.findByName(name)
+        if (found.isNotEmpty()) {
+            return found[0].Sid
         }
-        return subject.Sid
+
+        val newSubject = Subject(0, name)
+        return dao.insertAll(newSubject)[0]
     }
 }
