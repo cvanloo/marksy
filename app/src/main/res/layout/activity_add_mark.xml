@@ -108,7 +108,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_subject"
-        style="@style/AddMarkOutlineBox"
+        style="@style/AddMarkOutlineBoxDropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="80dp"
@@ -118,14 +118,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_layout_date">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_subject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:inputType="text"
-            android:textColor="@color/white" />
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/input_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textColor="@color/white"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

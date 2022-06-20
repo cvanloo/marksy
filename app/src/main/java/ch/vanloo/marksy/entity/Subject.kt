@@ -8,4 +8,8 @@ import androidx.room.PrimaryKey
 data class Subject(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "sid") val Sid: Long,
     @ColumnInfo(name = "name") val Name: String,
-)
+) {
+    override fun toString(): String {
+        return Name
+    }
+}

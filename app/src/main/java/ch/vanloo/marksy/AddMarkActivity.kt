@@ -2,16 +2,14 @@ package ch.vanloo.marksy
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.widget.LinearLayout
-import android.widget.PopupWindow
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import ch.vanloo.marksy.databinding.ActivityAddMarkBinding
 import ch.vanloo.marksy.db.MarksDatabase
 import ch.vanloo.marksy.entity.Mark
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import ch.vanloo.marksy.entity.Subject
+import kotlinx.coroutines.*
 import java.text.DateFormat
 import java.util.*
 
@@ -21,6 +19,7 @@ class AddMarkActivity : AppCompatActivity() {
     private lateinit var scope: CoroutineScope
 
     private var date: Long = 0
+    private var subject: Subject? = null
 
     private val datePickerDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -58,15 +57,16 @@ class AddMarkActivity : AppCompatActivity() {
         }
 
         val subjectDao = database.subjectsDao()
-        val subjects = subjectDao.getAll()
-        binding.inputSubject.setOnClickListener {
-            val inflator = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val dropdown = inflator.inflate(R.layout.dropdown_popup, null)
-            val popupWindow = PopupWindow(dropdown,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                true)
-            popupWindow.showAtLocation(dropdown, Gravity.CENTER, 0, 0)
+        scope.launch {
+            val subjects = subjectDao.getAll()
+            launch(Dispatchers.Main) {
+                val adapter = ArrayAdapter(this@AddMarkActivity, R.layout.list_popup_item, subjects)
+                binding.inputSubject.onItemClickListener =
+                    AdapterView.OnItemClickListener { _, _, position, _ ->
+                        subject = adapter.getItem(position)
+                    }
+                binding.inputSubject.setAdapter(adapter)
+            }
         }
 
         binding.buttonCreate.setOnClickListener {
@@ -76,14 +76,24 @@ class AddMarkActivity : AppCompatActivity() {
             val name = binding.inputName.text.toString()
             val date = Date(date)
 
-            val mark = Mark(0, value, weighting, name, date, 1)
-
-            val markDao = database.marksDao()
             scope.launch {
+                val sid = ensureCreatedSubjectID(subject)
+                val mark = Mark(0, value, weighting, name, date, sid)
+                val markDao = database.marksDao()
                 markDao.insertAll(mark)
             }
 
             finish()
         }
+    }
+
+    private suspend fun ensureCreatedSubjectID(subject: Subject?): Long {
+        if (subject == null) {
+            val dao = database.subjectsDao()
+            val name = binding.inputSubject.text.toString()
+            val newSubject = Subject(0, name)
+            return dao.insertAll(newSubject)[0]
+        }
+        return subject.Sid
     }
 }
