@@ -76,7 +76,7 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
 
     class MarksComparator : DiffUtil.ItemCallback<Mark>() {
         override fun areItemsTheSame(oldItem: Mark, newItem: Mark): Boolean {
-            return oldItem === newItem
+            return oldItem.Uid == newItem.Uid
         }
 
         override fun areContentsTheSame(oldItem: Mark, newItem: Mark): Boolean {
