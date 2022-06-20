@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ch.vanloo.marksy.entity.Mark
-import java.util.*
+import java.text.DateFormat
 
 class MarksAdapter(private val context: Context, private val itemClickListener: ItemClickListener) :
     ListAdapter<Mark, MarksAdapter.MarkViewHolder>(MarksComparator()) {
@@ -46,15 +46,8 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
             markValue.text = value.toString()
             markWeighting.text = context.getString(R.string.mark_weighting, weighting)
 
-            val calendar = Calendar.getInstance()
-            calendar.time = date
-
-            markDate.text = context.getString(
-                R.string.formatted_date,
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.YEAR)
-            )
+            val formattedDate = DateFormat.getDateInstance().format(date)
+            markDate.text = context.getString(R.string.formatted_date, formattedDate)
 
             // @DUP: Coloring:1
             if (value == 6.0f) {

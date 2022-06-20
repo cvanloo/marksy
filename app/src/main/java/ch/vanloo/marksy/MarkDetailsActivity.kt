@@ -8,6 +8,7 @@ import ch.vanloo.marksy.db.MarksDatabase
 import ch.vanloo.marksy.entity.Mark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.text.DateFormat
 import java.util.*
 
 class MarkDetailsActivity : AppCompatActivity() {
@@ -34,13 +35,8 @@ class MarkDetailsActivity : AppCompatActivity() {
             binding.preview.markWeighting.text = mark.Weighting.toString()
             binding.preview.markName.text = mark.Name
 
-            val calendar = Calendar.getInstance()
-            calendar.time = mark.Date
-
-            binding.preview.markDate.text = getString(R.string.formatted_date,
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.YEAR))
+            val formattedDate = DateFormat.getDateInstance().format(mark.Date)
+            binding.preview.markDate.text = getString(R.string.formatted_date, formattedDate)
 
             // @DUP: Coloring:2
             if (mark.Value == 6.0f) {

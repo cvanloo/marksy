@@ -12,6 +12,7 @@ import ch.vanloo.marksy.db.MarksDatabase
 import ch.vanloo.marksy.entity.Mark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.text.DateFormat
 import java.util.*
 
 class AddMarkActivity : AppCompatActivity() {
@@ -25,11 +26,9 @@ class AddMarkActivity : AppCompatActivity() {
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, dayOfMonth)
-            this.date = calendar.timeInMillis
-            binding.inputDate.setText(getString(R.string.formatted_date,
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.YEAR)))
+            date = calendar.timeInMillis
+            val formattedDate = DateFormat.getDateInstance().format(date)
+            binding.inputDate.setText(getString(R.string.formatted_date, formattedDate))
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +40,9 @@ class AddMarkActivity : AppCompatActivity() {
         scope = (application as MarksApplication).applicationScope
 
         val calendar = Calendar.getInstance()
-        this.date = calendar.timeInMillis
-        binding.inputDate.setText(getString(R.string.formatted_date,
-            calendar.get(Calendar.DAY_OF_MONTH),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.YEAR)))
+        date = calendar.timeInMillis
+        val formattedDate = DateFormat.getDateInstance().format(date)
+        binding.inputDate.setText(getString(R.string.formatted_date, formattedDate))
 
         binding.buttonCancel.setOnClickListener {
             finish()
