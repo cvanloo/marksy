@@ -5,7 +5,7 @@ import androidx.room.Relation
 
 data class SubjectAndMarks(
     @Embedded
-    val subject: Subject,
+    val toSubject: Subject,
     @Relation(
         parentColumn = "sid",
         entityColumn = "subject_id",
