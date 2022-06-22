@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ch.vanloo.marksy.databinding.ActivityMarkDetailsBinding
 import ch.vanloo.marksy.db.MarkDao
 import ch.vanloo.marksy.db.MarksDatabase
+import ch.vanloo.marksy.db.SubjectDao
 import ch.vanloo.marksy.entity.Mark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,8 @@ class MarkDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMarkDetailsBinding
     private lateinit var database: MarksDatabase
     private lateinit var scope: CoroutineScope
-    private lateinit var dao: MarkDao
+    private lateinit var markDao: MarkDao
+    private lateinit var subjectDao: SubjectDao
     private lateinit var mark: Mark
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,11 +27,12 @@ class MarkDetailsActivity : AppCompatActivity() {
 
         database = (application as MarksApplication).database
         scope = (application as MarksApplication).applicationScope
-        dao = database.marksDao()
+        markDao = database.marksDao()
+        subjectDao = database.subjectsDao()
 
         scope.launch {
             val uid = intent.getLongExtra(MARK_ID, 0)
-            mark = dao.getById(uid)
+            mark = markDao.getById(uid)
 
             launch(Dispatchers.Main) {
                 binding.preview.markValue.text = mark.Value.toString()
@@ -64,7 +67,12 @@ class MarkDetailsActivity : AppCompatActivity() {
 
     private fun deleteMark() {
         scope.launch {
-            dao.delete(mark)
+            markDao.delete(mark)
+            val subject = subjectDao.getByIdWithMarks(mark.Subject)
+            val marksLeft = subject.marks.size
+            if (marksLeft <= 0) {
+                subjectDao.delete(subject.toSubject)
+            }
         }
     }
 
