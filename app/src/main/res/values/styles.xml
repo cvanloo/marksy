@@ -11,6 +11,17 @@
         <item name="hintTextColor">#AF6B6B</item>
     </style>
 
+    <style name="AddMarkOutlineBoxDropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/add_mark_stroke</item>
+        <item name="android:textColorHint">@color/add_mark_hint</item>
+        <item name="hintTextColor">#AF6B6B</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorControlActivated">#FFAF6D6D</item>
+        <item name="colorAccent">#FFAF6D6D</item>
+    </style>
+
     <style name="Theme.AppCompat.DayNight.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
