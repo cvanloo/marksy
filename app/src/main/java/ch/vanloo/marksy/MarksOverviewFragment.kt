@@ -9,16 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.vanloo.marksy.databinding.MarksOverviewFragmentBinding
-import ch.vanloo.marksy.db.MarksViewModel
 import ch.vanloo.marksy.db.MarksViewModelFactory
-import ch.vanloo.marksy.entity.Mark
+import ch.vanloo.marksy.db.SubjectsViewModel
 
 class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment),
     MarksAdapter.ItemClickListener {
     private lateinit var binding: MarksOverviewFragmentBinding
     private lateinit var marksAdapter: MarksAdapter
 
-    private val marksViewModel: MarksViewModel by viewModels {
+    private val subjectsViewModel: SubjectsViewModel by viewModels {
         MarksViewModelFactory((activity?.application as MarksApplication).repository)
     }
 
@@ -40,14 +39,16 @@ class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment),
             layoutManager = LinearLayoutManager(this@MarksOverviewFragment.requireContext())
         }
 
-        marksViewModel.allMarks.observe(viewLifecycleOwner) { marks ->
-            marks?.let { marksAdapter.submitList(it) }
+        subjectsViewModel.allSubjectsWithMarks.observe(viewLifecycleOwner) { subjectsWithMarks ->
+            subjectsWithMarks?.let { marksAdapter.addList(it) }
         }
     }
 
-    override fun onItemClick(mark: Mark) {
-        val intent = Intent(requireContext(), MarkDetailsActivity::class.java)
-        intent.putExtra(MarkDetailsActivity.MARK_ID, mark.Uid)
-        startActivity(intent)
+    override fun onItemClick(item: DataItem) {
+        if (item is DataItem.MarkItem) {
+            val intent = Intent(requireContext(), MarkDetailsActivity::class.java)
+            intent.putExtra(MarkDetailsActivity.MARK_ID, item.toMark.Uid)
+            startActivity(intent)
+        }
     }
 }
