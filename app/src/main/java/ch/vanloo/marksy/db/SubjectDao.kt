@@ -2,7 +2,7 @@ package ch.vanloo.marksy.db
 
 import androidx.room.*
 import ch.vanloo.marksy.entity.Subject
-import ch.vanloo.marksy.entity.SubjectAndMarks
+import ch.vanloo.marksy.entity.SubjectWithMarks
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -20,7 +20,7 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects")
-    fun getAllWithMarks(): Flow<List<SubjectAndMarks>>
+    fun getAllWithMarks(): Flow<List<SubjectWithMarks>>
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE sid = :sid")
@@ -28,7 +28,7 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE sid = :sid")
-    suspend fun getByIdWithMarks(sid: Long): SubjectAndMarks
+    suspend fun getByIdWithMarks(sid: Long): SubjectWithMarks
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE name LIKE :name")
@@ -40,7 +40,7 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE name LIKE :name")
-    fun findByNameWithMarks(name: String): Flow<List<SubjectAndMarks>>
+    fun findByNameWithMarks(name: String): Flow<List<SubjectWithMarks>>
 
     @Update
     suspend fun updateAll(vararg subjects: Subject): Int

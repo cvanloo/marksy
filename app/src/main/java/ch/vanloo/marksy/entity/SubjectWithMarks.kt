@@ -3,7 +3,7 @@ package ch.vanloo.marksy.entity
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class SubjectAndMarks(
+data class SubjectWithMarks(
     @Embedded
     val toSubject: Subject,
     @Relation(

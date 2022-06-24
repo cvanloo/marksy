@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import ch.vanloo.marksy.entity.Mark
 import ch.vanloo.marksy.entity.MarkWithSubject
 import ch.vanloo.marksy.entity.Subject
-import ch.vanloo.marksy.entity.SubjectAndMarks
+import ch.vanloo.marksy.entity.SubjectWithMarks
 import kotlinx.coroutines.launch
 
 class MarksViewModel(private val repository: MarksRepository) : ViewModel() {
@@ -19,7 +19,7 @@ class MarksViewModel(private val repository: MarksRepository) : ViewModel() {
 
 class SubjectsViewModel(private val repository: MarksRepository) : ViewModel() {
     val allSubjects: LiveData<List<Subject>> = repository.allSubjects.asLiveData()
-    val allSubjectsWithMarks: LiveData<List<SubjectAndMarks>> =
+    val allSubjectsWithMarks: LiveData<List<SubjectWithMarks>> =
         repository.allSubjectsWithMarks.asLiveData()
 
     fun insert(vararg subjects: Subject) = viewModelScope.launch {
