@@ -2,6 +2,8 @@ package ch.vanloo.marksy
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import ch.vanloo.marksy.databinding.ActivityMarkDetailsBinding
 import ch.vanloo.marksy.db.MarkDao
 import ch.vanloo.marksy.db.MarksDatabase
@@ -11,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.DateFormat
+import kotlin.math.max
 
 class MarkDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMarkDetailsBinding
@@ -42,20 +45,11 @@ class MarkDetailsActivity : AppCompatActivity() {
                 val formattedDate = DateFormat.getDateInstance().format(mark.Date)
                 binding.preview.markDate.text = getString(R.string.formatted_date, formattedDate)
 
-                // @DUP: Coloring:2
-                if (mark.Value == 6.0f) {
-                    binding.preview.markValue.setTextColor(getColor(R.color.mark_6_0))
-                } else if (mark.Value >= 5.5f) {
-                    binding.preview.markValue.setTextColor(getColor(R.color.mark_5_5))
-                } else if (mark.Value >= 5.0f) {
-                    binding.preview.markValue.setTextColor(getColor(R.color.mark_5_0))
-                } else if (mark.Value >= 4.5f) {
-                    binding.preview.markValue.setTextColor(getColor(R.color.mark_4_5))
-                } else if (mark.Value >= 4.0f) {
-                    binding.preview.markValue.setTextColor(getColor(R.color.mark_4_0))
-                } else {
-                    binding.preview.markValue.setTextColor(getColor(R.color.mark_failing))
-                }
+                val start = Color(0xFF, 0x00, 0x00)
+                val end = Color(0x00, 0xFF, 0x00)
+                val step = max(mark.Value - 2, 1f) // Any mark below 4 is bad
+                val gradient = ColorGradient(start, end, 4f).calculate(step)
+                binding.preview.markValue.setTextColor(gradient.toArgb())
             }
         }
 

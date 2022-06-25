@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ch.vanloo.marksy.entity.SubjectWithMarks
 import java.text.DateFormat
+import kotlin.math.max
 
 private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_ITEM = 1
@@ -77,20 +80,11 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
             val formattedDate = DateFormat.getDateInstance().format(date)
             markDate.text = context.getString(R.string.formatted_date, formattedDate)
 
-            // @DUP: Coloring:1
-            if (value == 6.0f) {
-                markValue.setTextColor(context.getColor(R.color.mark_6_0))
-            } else if (value >= 5.5f) {
-                markValue.setTextColor(context.getColor(R.color.mark_5_5))
-            } else if (value >= 5.0f) {
-                markValue.setTextColor(context.getColor(R.color.mark_5_0))
-            } else if (value >= 4.5f) {
-                markValue.setTextColor(context.getColor(R.color.mark_4_5))
-            } else if (value >= 4.0f) {
-                markValue.setTextColor(context.getColor(R.color.mark_4_0))
-            } else {
-                markValue.setTextColor(context.getColor(R.color.mark_failing))
-            }
+            val start = Color(0xFF, 0x00, 0x00)
+            val end = Color(0x00, 0xFF, 0x00)
+            val step = max(value - 2, 1f) // Any mark below 4 is bad
+            val gradient = ColorGradient(start, end, 4f).calculate(step)
+            markValue.setTextColor(gradient.toArgb())
         }
 
         companion object {
