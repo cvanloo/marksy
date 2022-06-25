@@ -4,14 +4,14 @@ import androidx.compose.ui.graphics.Color
 
 class ColorGradient(
     private val start: Color,
-    private val end: Color,
-    private val steppingDistance: Float,
+    end: Color,
+    steppingDistance: Float,
 ) {
-    fun calculate(step: Float): Color {
-        val redSteppingDistance = (end.red - start.red) / steppingDistance
-        val greenSteppingDistance = (end.green - start.green) / steppingDistance
-        val blueSteppingDistance = (end.blue - start.blue) / steppingDistance
+    private val redSteppingDistance = (end.red - start.red) / steppingDistance
+    private val greenSteppingDistance = (end.green - start.green) / steppingDistance
+    private val blueSteppingDistance = (end.blue - start.blue) / steppingDistance
 
+    fun calculate(step: Float): Color {
         val redStep = redSteppingDistance * (step - 1)
         val greenStep = greenSteppingDistance * (step - 1)
         val blueStep = blueSteppingDistance * (step - 1)
