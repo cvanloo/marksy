@@ -2,8 +2,6 @@ package ch.vanloo.marksy
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import ch.vanloo.marksy.databinding.ActivityMarkDetailsBinding
 import ch.vanloo.marksy.db.MarkDao
 import ch.vanloo.marksy.db.MarksDatabase
@@ -13,7 +11,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.DateFormat
-import kotlin.math.max
 
 class MarkDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMarkDetailsBinding
@@ -39,7 +36,8 @@ class MarkDetailsActivity : AppCompatActivity() {
 
             launch(Dispatchers.Main) {
                 binding.preview.markValue.text = mark.Value.toString()
-                binding.preview.markWeighting.text = mark.Weighting.toString()
+                binding.preview.markWeighting.text =
+                    getString(R.string.mark_weighting, mark.Weighting)
                 binding.preview.markName.text = mark.Name
 
                 val formattedDate = DateFormat.getDateInstance().format(mark.Date)
