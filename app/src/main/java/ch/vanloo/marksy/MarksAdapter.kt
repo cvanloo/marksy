@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ch.vanloo.marksy.entity.SubjectWithMarks
 import java.text.DateFormat
-import kotlin.math.max
 
 private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_ITEM = 1
@@ -23,7 +20,7 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
     fun addList(list: List<SubjectWithMarks>) {
         val f = mutableListOf<DataItem>()
         for (s in list) {
-            f.add(DataItem.SubjectHeader(s.toSubject))
+            f.add(DataItem.SubjectHeader(s))
             for (m in s.marks) {
                 f.add(DataItem.MarkItem(m))
             }
@@ -100,8 +97,13 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
 
         fun bind(context: Context, subject: DataItem.SubjectHeader) {
             this.subject = subject
+            val average = subject.toSubject.average()
+            val rounded = subject.toSubject.rounded()
 
-            subjectName.text = subject.toSubject.Name
+            subjectName.text = context.getString(R.string.subject_header,
+                subject.toSubject.toSubject.Name,
+                average,
+                rounded)
         }
 
         companion object {

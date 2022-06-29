@@ -5,5 +5,8 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:layout_marginTop="20dp"
+    android:layout_marginHorizontal="10dp"
     android:textAlignment="center"
+    android:textColor="#88FFFFFF"
+    android:background="@drawable/rounded_corners"
     android:text="Hello What Do I Look Like"/>
