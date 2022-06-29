@@ -1,25 +1,16 @@
 package ch.vanloo.marksy
 
-import androidx.compose.ui.graphics.Color
+import android.content.Context
 
-class ColorGradient(
-    private val start: Color,
-    end: Color,
-    steppingDistance: Float,
-) {
-    private val redSteppingDistance = (end.red - start.red) / steppingDistance
-    private val greenSteppingDistance = (end.green - start.green) / steppingDistance
-    private val blueSteppingDistance = (end.blue - start.blue) / steppingDistance
-
-    fun calculate(step: Float): Color {
-        val redStep = redSteppingDistance * (step - 1)
-        val greenStep = greenSteppingDistance * (step - 1)
-        val blueStep = blueSteppingDistance * (step - 1)
-
-        val ir = 255 * (start.red + redStep)
-        val ig = 255 * (start.green + greenStep)
-        val ib = 255 * (start.blue + blueStep)
-
-        return Color(ir.toInt(), ig.toInt(), ib.toInt())
+class ColorGradient(private val context: Context) {
+    fun calculate(value: Float): Int {
+        return when {
+            value == 6.0f -> context.getColor(R.color.mark_6_0)
+            value >= 5.5f -> context.getColor(R.color.mark_5_5)
+            value >= 5.0f -> context.getColor(R.color.mark_5_0)
+            value >= 4.5f -> context.getColor(R.color.mark_4_5)
+            value >= 4.0f -> context.getColor(R.color.mark_4_0)
+            else -> context.getColor(R.color.mark_failing)
+        }
     }
 }

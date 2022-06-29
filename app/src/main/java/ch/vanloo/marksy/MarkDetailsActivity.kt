@@ -45,11 +45,8 @@ class MarkDetailsActivity : AppCompatActivity() {
                 val formattedDate = DateFormat.getDateInstance().format(mark.Date)
                 binding.preview.markDate.text = getString(R.string.formatted_date, formattedDate)
 
-                val start = Color(0xFF, 0x00, 0x00)
-                val end = Color(0x00, 0xFF, 0x00)
-                val step = max(mark.Value - 2, 1f) // Any mark below 4 is bad
-                val gradient = ColorGradient(start, end, 4f).calculate(step)
-                binding.preview.markValue.setTextColor(gradient.toArgb())
+                val color = ColorGradient(this@MarkDetailsActivity).calculate(mark.Value)
+                binding.preview.markValue.setTextColor(color)
             }
         }
 

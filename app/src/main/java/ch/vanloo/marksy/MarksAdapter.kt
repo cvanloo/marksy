@@ -80,11 +80,8 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
             val formattedDate = DateFormat.getDateInstance().format(date)
             markDate.text = context.getString(R.string.formatted_date, formattedDate)
 
-            val start = Color(0xFF, 0x00, 0x00)
-            val end = Color(0x00, 0xFF, 0x00)
-            val step = max(value - 2, 1f) // Any mark below 4 is bad
-            val gradient = ColorGradient(start, end, 4f).calculate(step)
-            markValue.setTextColor(gradient.toArgb())
+            val color = ColorGradient(context).calculate(value)
+            markValue.setTextColor(color)
         }
 
         companion object {
