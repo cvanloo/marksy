@@ -10,6 +10,7 @@ class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.setDefaultUncaughtExceptionHandler(CrashHandler(this))
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

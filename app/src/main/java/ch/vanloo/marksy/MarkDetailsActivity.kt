@@ -22,6 +22,7 @@ class MarkDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.setDefaultUncaughtExceptionHandler(CrashHandler(this))
         binding = ActivityMarkDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
