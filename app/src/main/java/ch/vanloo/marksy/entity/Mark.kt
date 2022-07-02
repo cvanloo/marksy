@@ -2,14 +2,14 @@ package ch.vanloo.marksy.entity
 
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import ch.vanloo.marksy.db.Converter
+import ch.vanloo.marksy.db.DateConverter
 import java.util.*
 
 @Entity(tableName = "marks", foreignKeys = [ForeignKey(entity = Subject::class,
     parentColumns = ["sid"],
     childColumns = ["subject_id"],
     onDelete = CASCADE)])
-@TypeConverters(Converter::class)
+@TypeConverters(DateConverter::class)
 data class Mark(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "uid") val Uid: Long,
     @ColumnInfo(name = "value") val Value: Float,

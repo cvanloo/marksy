@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ch.vanloo.marksy.databinding.ActivityAddMarkBinding
 import ch.vanloo.marksy.db.MarksDatabase
 import ch.vanloo.marksy.entity.Mark
+import ch.vanloo.marksy.entity.Semester
 import ch.vanloo.marksy.entity.Subject
 import kotlinx.coroutines.*
 import java.text.DateFormat
@@ -20,6 +21,7 @@ class AddMarkActivity : AppCompatActivity() {
 
     private var date: Long = 0
     private var subject: Subject? = null
+    private var currentSemester: Semester? = null
 
     private val datePickerDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -42,6 +44,11 @@ class AddMarkActivity : AppCompatActivity() {
         date = calendar.timeInMillis
         val formattedDate = DateFormat.getDateInstance().format(date)
         binding.inputDate.setText(getString(R.string.formatted_date, formattedDate))
+
+        scope.launch {
+            val semestersDao = database.semesterDao()
+            currentSemester = semestersDao.getCurrentSemester()
+        }
 
         binding.buttonCancel.setOnClickListener {
             finish()
@@ -98,7 +105,8 @@ class AddMarkActivity : AppCompatActivity() {
             return found[0].Sid
         }
 
-        val newSubject = Subject(0, name)
+        // @TODO: Possibly dangerous?
+        val newSubject = Subject(0, name, currentSemester!!.Sid)
         return dao.insertAll(newSubject)[0]
     }
 }

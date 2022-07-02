@@ -6,16 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ch.vanloo.marksy.entity.Mark
+import ch.vanloo.marksy.entity.Semester
 import ch.vanloo.marksy.entity.Subject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
 // `exportSchema` false to avoid build errors. For migrations, consider setting this to true (default).
-@Database(entities = [Mark::class, Subject::class], version = 1, exportSchema = false)
+@Database(entities = [Mark::class, Subject::class, Semester::class],
+    version = 2,
+    exportSchema = true)
 abstract class MarksDatabase : RoomDatabase() {
     abstract fun marksDao(): MarkDao
     abstract fun subjectsDao(): SubjectDao
+    abstract fun semesterDao(): SemesterDao
 
     private class MarksDatabaseCallback(private val scope: CoroutineScope) :
         RoomDatabase.Callback() {
@@ -23,13 +27,18 @@ abstract class MarksDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
+                    val semestersDao = database.semesterDao()
+                    val sid = semestersDao.insertAll(
+                        Semester(0, "FR22", "Fruehlingssemester 2022", Date(), null)
+                    )[0]
+
                     val subjectsDao = database.subjectsDao()
                     val ids = subjectsDao.insertAll(
-                        Subject(0, "MAS"),
-                        Subject(0, "NPS"),
-                        Subject(0, "DEG"),
-                        Subject(0, "ENG"),
-                        Subject(0, "IDAF"),
+                        Subject(0, "MAS", sid),
+                        Subject(0, "NPS", sid),
+                        Subject(0, "DEG", sid),
+                        Subject(0, "ENG", sid),
+                        Subject(0, "IDAF", sid),
                     )
 
                     val marksDao = database.marksDao()
