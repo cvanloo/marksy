@@ -13,13 +13,15 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 // `exportSchema` false to avoid build errors. For migrations, consider setting this to true (default).
-@Database(entities = [Mark::class, Subject::class, Semester::class],
-    version = 2,
-    exportSchema = true)
+@Database(
+    entities = [Mark::class, Subject::class, Semester::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class MarksDatabase : RoomDatabase() {
     abstract fun marksDao(): MarkDao
     abstract fun subjectsDao(): SubjectDao
-    abstract fun semesterDao(): SemesterDao
+    abstract fun semestersDao(): SemesterDao
 
     private class MarksDatabaseCallback(private val scope: CoroutineScope) :
         RoomDatabase.Callback() {
@@ -27,7 +29,7 @@ abstract class MarksDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    val semestersDao = database.semesterDao()
+                    val semestersDao = database.semestersDao()
                     val sid = semestersDao.insertAll(
                         Semester(0, "FR22", "Fruehlingssemester 2022", Date(), null)
                     )[0]

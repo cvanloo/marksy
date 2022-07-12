@@ -1,5 +1,5 @@
 /**
- * Helpers to convert Kotlin types to Room types and back.
+ * Little helpers to convert Kotlin types to Room types and back.
  */
 package ch.vanloo.marksy.db
 
@@ -16,18 +16,8 @@ class DateConverter {
 
 class NullableDateConverter {
     @TypeConverter
-    fun toDateNullable(timestamp: Long?): Date? {
-        if (null != timestamp) {
-            return Date(timestamp)
-        }
-        return null
-    }
+    fun toNullableDate(timestamp: Long?) = if (null != timestamp) Date(timestamp) else null
 
     @TypeConverter
-    fun fromDateNullable(date: Date?): Long? {
-        if (null != date) {
-            return date.time
-        }
-        return null
-    }
+    fun fromNullableDate(date: Date?) = date?.time
 }

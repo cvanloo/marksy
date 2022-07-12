@@ -21,7 +21,6 @@ class AddMarkActivity : AppCompatActivity() {
 
     private var date: Long = 0
     private var subject: Subject? = null
-    private var currentSemester: Semester? = null
 
     private val datePickerDialogListener =
         DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
@@ -44,11 +43,6 @@ class AddMarkActivity : AppCompatActivity() {
         date = calendar.timeInMillis
         val formattedDate = DateFormat.getDateInstance().format(date)
         binding.inputDate.setText(getString(R.string.formatted_date, formattedDate))
-
-        scope.launch {
-            val semestersDao = database.semesterDao()
-            currentSemester = semestersDao.getCurrentSemester()
-        }
 
         binding.buttonCancel.setOnClickListener {
             finish()
@@ -105,8 +99,9 @@ class AddMarkActivity : AppCompatActivity() {
             return found[0].Sid
         }
 
-        // @TODO: Possibly dangerous?
-        val newSubject = Subject(0, name, currentSemester!!.Sid)
+        val cs = database.semestersDao().getCurrent()
+        val newSubject = Subject(0, name, cs.Sid)
+
         return dao.insertAll(newSubject)[0]
     }
 }
