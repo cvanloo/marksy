@@ -12,7 +12,7 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects")
-    fun getAll(): List<Subject>
+    suspend fun getAll(): List<Subject>
 
     @Transaction
     @Query("SELECT * FROM subjects")
@@ -20,7 +20,7 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects")
-    fun getAllWithMarks(): Flow<List<SubjectWithMarks>>
+    fun getAllWithMarksFlow(): Flow<List<SubjectWithMarks>>
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE sid = :sid")
@@ -32,7 +32,7 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE name LIKE :name")
-    fun findByName(name: String): List<Subject>
+    suspend fun findByName(name: String): List<Subject>
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE name LIKE :name")
@@ -40,7 +40,7 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE name LIKE :name")
-    fun findByNameWithMarks(name: String): Flow<List<SubjectWithMarks>>
+    fun findByNameWithMarksFlow(name: String): Flow<List<SubjectWithMarks>>
 
     @Update
     suspend fun updateAll(vararg subjects: Subject): Int

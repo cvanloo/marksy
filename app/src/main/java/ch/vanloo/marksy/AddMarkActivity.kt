@@ -98,7 +98,8 @@ class AddMarkActivity : AppCompatActivity() {
             return found[0].Sid
         }
 
-        val newSubject = Subject(0, name)
+        val cs = database.semestersDao().getCurrent()
+        val newSubject = Subject(0, name, cs.Sid)
         return dao.insertAll(newSubject)[0]
     }
 }
