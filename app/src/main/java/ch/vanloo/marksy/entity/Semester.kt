@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.TypeConverters
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ch.vanloo.marksy.db.DateConverter
 import ch.vanloo.marksy.db.NullableDateConverter
 import java.util.*
 

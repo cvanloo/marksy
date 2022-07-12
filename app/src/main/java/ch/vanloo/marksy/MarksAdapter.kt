@@ -97,8 +97,8 @@ class MarksAdapter(private val context: Context, private val itemClickListener: 
 
         fun bind(context: Context, subject: DataItem.SubjectHeader) {
             this.subject = subject
-            val average = subject.toSubject.average()
-            val rounded = subject.toSubject.rounded()
+            val average = subject.toSubject.average
+            val rounded = subject.toSubject.rounded
 
             subjectName.text = context.getString(R.string.subject_header,
                 subject.toSubject.toSubject.Name,

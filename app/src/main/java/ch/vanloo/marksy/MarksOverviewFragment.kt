@@ -39,7 +39,7 @@ class MarksOverviewFragment : Fragment(R.layout.marks_overview_fragment),
             layoutManager = LinearLayoutManager(this@MarksOverviewFragment.requireContext())
         }
 
-        subjectsViewModel.allSubjectsWithMarks.observe(viewLifecycleOwner) { subjectsWithMarks ->
+        subjectsViewModel.allSubjectsWithMarksFromCurrentSemester.observe(viewLifecycleOwner) { subjectsWithMarks ->
             subjectsWithMarks?.let { marksAdapter.addList(it) }
         }
     }

@@ -4,7 +4,6 @@ import androidx.room.*
 import ch.vanloo.marksy.entity.Semester
 import ch.vanloo.marksy.entity.SemesterWithSubjects
 import kotlinx.coroutines.flow.Flow
-import java.util.*
 
 @Dao
 interface SemesterDao {
@@ -33,7 +32,7 @@ interface SemesterDao {
 
     @Transaction
     @Query("SELECT * FROM semesters")
-    fun getAllWithSubjectsFlow(): List<SemesterWithSubjects>
+    fun getAllWithSubjectsFlow(): Flow<List<SemesterWithSubjects>>
 
     @Transaction
     @Query("SELECT * FROM semesters WHERE sid = :sid")

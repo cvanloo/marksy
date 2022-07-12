@@ -7,12 +7,17 @@ import kotlinx.coroutines.flow.Flow
 class MarksRepository(
     private val markDao: MarkDao,
     private val subjectDao: SubjectDao,
-    private val semesterDao: SemesterDao
+    private val semesterDao: SemesterDao,
 ) {
-    val allMarks: Flow<List<Mark>> = markDao.getAll()
-    val allMarksWithSubject: Flow<List<MarkWithSubject>> = markDao.getAllWithSubject()
+    val allMarks: Flow<List<Mark>> = markDao.getAllFlow()
+    val allMarksWithSubject: Flow<List<MarkWithSubject>> = markDao.getAllWithSubjectFlow()
     val allSubjects: Flow<List<Subject>> = subjectDao.getAllFlow()
     val allSubjectsWithMarks: Flow<List<SubjectWithMarks>> = subjectDao.getAllWithMarksFlow()
+    val allSubjectsWithMarksFromCurrentSemester: Flow<List<SubjectWithMarks>> =
+        subjectDao.getAllWithMarksFromCurrentSemesterFlow()
+    val allSemesters: Flow<List<Semester>> = semesterDao.getAllFlow()
+    val allSemestersWithSubjects: Flow<List<SemesterWithSubjects>> =
+        semesterDao.getAllWithSubjectsFlow()
 
     @WorkerThread
     suspend fun insert(vararg marks: Mark) {

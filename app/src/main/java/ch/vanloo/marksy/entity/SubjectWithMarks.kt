@@ -1,6 +1,7 @@
 package ch.vanloo.marksy.entity
 
 import androidx.room.Embedded
+import androidx.room.Ignore
 import androidx.room.Relation
 import kotlin.math.floor
 
@@ -13,18 +14,23 @@ data class SubjectWithMarks(
     )
     val marks: List<Mark>,
 ) {
-    fun average(): Float {
-        val weightedMarks = marks.map { it.Value * it.Weighting }.sum()
-        val totalWeight = marks.map { it.Weighting }.sum()
+    @Ignore
+    val average: Double
 
-        return weightedMarks / totalWeight
+    init {
+        val weightedMarks = marks.sumOf { (it.Value * it.Weighting).toDouble() }
+        val totalWeight = marks.sumOf { it.Weighting.toDouble() }
+
+        average = weightedMarks / totalWeight
     }
 
-    fun rounded(): Float {
-        val avg = average()
-        val base = floor(avg)
+    @Ignore
+    val rounded: Double
 
-        return when (avg - base) {
+    init {
+        val base = floor(average)
+
+        rounded = when (average - base) {
             in 0.0..0.25 -> base
             in 0.26..0.75 -> base + 0.5f
             else -> base + 1

@@ -23,6 +23,10 @@ interface SubjectDao {
     fun getAllWithMarksFlow(): Flow<List<SubjectWithMarks>>
 
     @Transaction
+    @Query("SELECT subjects.* ,marks.* FROM subjects INNER JOIN marks ON marks.subject_id = subjects.sid INNER JOIN semesters ON subjects.semester_id = semesters.sid WHERE semesters.`begin` = (SELECT MAX(`begin`) FROM semesters)")
+    fun getAllWithMarksFromCurrentSemesterFlow(): Flow<List<SubjectWithMarks>>
+
+    @Transaction
     @Query("SELECT * FROM subjects WHERE sid = :sid")
     suspend fun getById(sid: Long): Subject
 

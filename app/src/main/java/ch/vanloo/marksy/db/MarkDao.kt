@@ -12,12 +12,21 @@ interface MarkDao {
 
     @Transaction
     @Query("SELECT * FROM marks")
-    fun getAll(): Flow<List<Mark>>
+    suspend fun getAll(): List<Mark>
 
     @Transaction
     @Query("SELECT * FROM marks")
-    fun getAllWithSubject(): Flow<List<MarkWithSubject>>
+    fun getAllFlow(): Flow<List<Mark>>
 
+    @Transaction
+    @Query("SELECT * FROM marks")
+    suspend fun getAllWithSubject(): List<MarkWithSubject>
+
+    @Transaction
+    @Query("SELECT * FROM marks")
+    fun getAllWithSubjectFlow(): Flow<List<MarkWithSubject>>
+
+    @Transaction
     @Query("SELECT * FROM marks WHERE uid = :uid")
     suspend fun getById(uid: Long): Mark
 
@@ -27,11 +36,19 @@ interface MarkDao {
 
     @Transaction
     @Query("SELECT * FROM marks WHERE name LIKE :name")
-    fun findByName(name: String): Flow<List<Mark>>
+    suspend fun findByName(name: String): List<Mark>
 
     @Transaction
     @Query("SELECT * FROM marks WHERE name LIKE :name")
-    fun findByNameWithSubject(name: String): Flow<List<MarkWithSubject>>
+    fun findByNameFlow(name: String): Flow<List<Mark>>
+
+    @Transaction
+    @Query("SELECT * FROM marks WHERE name LIKE :name")
+    fun findByNameWithSubject(name: String): List<MarkWithSubject>
+
+    @Transaction
+    @Query("SELECT * FROM marks WHERE name LIKE :name")
+    fun findByNameWithSubjectFlow(name: String): Flow<List<MarkWithSubject>>
 
     @Update
     suspend fun updateAll(vararg marks: Mark): Int

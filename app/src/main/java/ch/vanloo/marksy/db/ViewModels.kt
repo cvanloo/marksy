@@ -1,10 +1,7 @@
 package ch.vanloo.marksy.db
 
 import androidx.lifecycle.*
-import ch.vanloo.marksy.entity.Mark
-import ch.vanloo.marksy.entity.MarkWithSubject
-import ch.vanloo.marksy.entity.Subject
-import ch.vanloo.marksy.entity.SubjectWithMarks
+import ch.vanloo.marksy.entity.*
 import kotlinx.coroutines.launch
 
 class MarksViewModel(private val repository: MarksRepository) : ViewModel() {
@@ -21,9 +18,21 @@ class SubjectsViewModel(private val repository: MarksRepository) : ViewModel() {
     val allSubjects: LiveData<List<Subject>> = repository.allSubjects.asLiveData()
     val allSubjectsWithMarks: LiveData<List<SubjectWithMarks>> =
         repository.allSubjectsWithMarks.asLiveData()
+    val allSubjectsWithMarksFromCurrentSemester: LiveData<List<SubjectWithMarks>> =
+        repository.allSubjectsWithMarksFromCurrentSemester.asLiveData()
 
     fun insert(vararg subjects: Subject) = viewModelScope.launch {
         repository.insert(*subjects)
+    }
+}
+
+class SemestersViewModel(private val repository: MarksRepository) : ViewModel() {
+    val allSemesters: LiveData<List<Semester>> = repository.allSemesters.asLiveData()
+    val allSemestersWithSubjects: LiveData<List<SemesterWithSubjects>> =
+        repository.allSemestersWithSubjects.asLiveData()
+
+    fun insert(vararg semesters: Semester) = viewModelScope.launch {
+        repository.insert(*semesters)
     }
 }
 
@@ -36,6 +45,10 @@ class MarksViewModelFactory(private val repository: MarksRepository) : ViewModel
         if (modelClass.isAssignableFrom(SubjectsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return SubjectsViewModel(repository) as T
+        }
+        if (modelClass.isAssignableFrom(SemestersViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return SemestersViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

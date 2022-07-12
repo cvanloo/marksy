@@ -8,13 +8,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import ch.vanloo.marksy.entity.Mark
 import ch.vanloo.marksy.entity.Semester
 import ch.vanloo.marksy.entity.Subject
+import java.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.util.*
 
 // `exportSchema` false to avoid build errors. For migrations, consider setting this to true (default).
 @Database(
-    entities = [Mark::class, Subject::class, Semester::class],
+    entities = [Semester::class, Subject::class, Mark::class],
     version = 1,
     exportSchema = false
 )
@@ -31,7 +31,7 @@ abstract class MarksDatabase : RoomDatabase() {
                 scope.launch {
                     val semestersDao = database.semestersDao()
                     val sid = semestersDao.insertAll(
-                        Semester(0, "FR22", "Fruehlingssemester 2022", Date(), null)
+                        Semester(0, "FR22", "Frühlingssemester 2022", Date(), null)
                     )[0]
 
                     val subjectsDao = database.subjectsDao()
